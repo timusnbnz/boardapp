@@ -9,3 +9,7 @@
 ## Starten von Frontend und Backend
 
 - `npm start` ausführen
+
+## Entwickeln
+
+- Wir nutzen [DaisyUI](https://daisyui.com/components/) mit TailwindCSS für die UI
