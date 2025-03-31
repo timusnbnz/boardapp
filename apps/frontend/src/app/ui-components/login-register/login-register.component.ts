@@ -5,4 +5,10 @@ import { Component } from '@angular/core';
   templateUrl: './login-register.component.html',
   styleUrls: ['./login-register.component.css']
 })
-export class LoginRegisterComponent {}
+export class LoginRegisterComponent {
+  toggleForm = false;
+
+  toggleForms(){
+    this.toggleForm = !this.toggleForm;
+  }
+}
