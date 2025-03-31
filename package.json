@@ -4,9 +4,10 @@
   "license": "MIT",
   "scripts": {
     "start": "nx run-many --target=serve --projects=frontend,backend --parallel",
+    "cleanstart": "clear && npm start",
     "start:frontend": "nx serve frontend",
     "start:backend": "nx serve backend",
-    "repair": "rm -rf node_modules && rm -rf package-lock.json && npm i --verbose",
+    "repair": "rm -rf node_modules && rm -rf package-lock.json && npm i --verbose"
   },
   "private": true,
   "dependencies": {
