@@ -12,4 +12,4 @@
 
 ## Entwickeln
 
-- Wir nutzen [DaisyUI](https://daisyui.com/components/) mit TailwindCSS für die UI
+- Wir nutzen [Preline](https://preline.io/) mit TailwindCSS für die UI
