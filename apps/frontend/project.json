@@ -22,7 +22,7 @@
           }
         ],
         "styles": ["apps/frontend/src/styles.css"],
-        "scripts": []
+        "scripts": ["node_modules/preline/dist/index.js"]
       },
       "configurations": {
         "production": {
