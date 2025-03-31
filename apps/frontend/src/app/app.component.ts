@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { LoginRegisterComponent } from './ui-components/login-register/login-register.component';
 import { TodoViewComponent } from './ui-components/todo-view/todo-view.component';
-import { KanbanBoardComponent } from './ui-components/kanban-board/kanban-board.component';
+import { BoardComponent } from './ui-components/board/board.component';
 import { TaskFormComponent } from './ui-components/task-form/task-form.component';
 import { NavbarComponent } from './ui-components/navbar/navbar.component';
 
@@ -11,7 +11,7 @@ import { NavbarComponent } from './ui-components/navbar/navbar.component';
     RouterModule,
     LoginRegisterComponent,
     TodoViewComponent,
-    KanbanBoardComponent,
+    BoardComponent,
     TaskFormComponent,
     NavbarComponent
   ],
