@@ -32,7 +32,7 @@ services:
       - board-network
 
   mongodb:
-    image: mongo
+    image: mongo:latest
     container_name: board-mongodb
     ports:
       - "27017"
