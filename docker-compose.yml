@@ -1,0 +1,35 @@
+services:
+  frontend:
+    image: nginx:latest
+    container_name: board-frontend
+    volumes:
+      - ./dist/apps/frontend/browser:/usr/share/nginx/html
+      - ./nginx-frontend.conf:/etc/nginx/nginx.conf
+    ports:
+      - "4200:80"
+    networks:
+      - board-network
+
+  backend:
+    build:
+      context: ./
+      dockerfile: ./apps/backend/Dockerfile
+    container_name: board-backend
+    ports:
+      - "3000"
+    networks:
+      - board-network
+
+  reverse-proxy:
+    image: nginx:latest
+    container_name: board-reverse-proxy
+    volumes:
+      - ./nginx-proxy.conf:/etc/nginx/nginx.conf
+    ports:
+      - "80:80"
+    networks:
+      - board-network
+
+networks:
+  board-network:
+    driver: bridge
