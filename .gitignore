@@ -21,7 +21,6 @@ node_modules
 npm-debug.log
 yarn-error.log
 .nx
-package-lock.json
 testem.log
 /typings
 .DS_Store
