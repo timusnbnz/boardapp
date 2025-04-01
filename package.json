@@ -9,7 +9,8 @@
     "prod": "npm run build && docker-compose down && npm run build && docker-compose up -d",
     "clean": "docker ps -aq | xargs -r docker stop && docker ps -aq | xargs -r docker rm && docker image prune -af && rm -rf node_modules dist .angular .nx .vscode .redis .mongodb package-lock.json",
     "repair": "npm run clean && docker image prune -af && npx npm-check-updates -u --reject tailwindcss && npm i --verbose",
-    "build": "npx nx build frontend && npx nx build backend"
+    "build": "npx nx build frontend && npx nx build backend",
+    "component": "COMPONENT_NAME=$1 npx nx generate @schematics/angular:component $COMPONENT_NAME --project=frontend --path=apps/frontend/src/app"
   },
   "private": true,
   "dependencies": {
