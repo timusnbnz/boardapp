@@ -30,6 +30,14 @@ services:
     networks:
       - board-network
 
+  mongodb:
+    image: mongo
+    container_name: board-mongodb
+    ports:
+      - "27017"
+    networks:
+      - board-network
+
 networks:
   board-network:
     driver: bridge
