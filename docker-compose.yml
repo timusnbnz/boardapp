@@ -42,6 +42,14 @@ services:
     networks:
       - board-network
 
+  redis:
+    image: redis:latest
+    container_name: board-redis
+    ports:
+      - "6379:6379"
+    networks:
+      - board-network
+
 networks:
   board-network:
     driver: bridge
