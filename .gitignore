@@ -25,3 +25,4 @@ testem.log
 /typings
 .DS_Store
 Thumbs.db
+.angular
