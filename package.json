@@ -4,10 +4,10 @@
   "license": "MIT",
   "scripts": {
     "start": "npm run start:mongodb && npm run start:redis && nx run-many --target=serve --projects=frontend,backend --parallel",
-    "start:mongodb": "docker run --rm -d --name dev-mongodb -p 27017:27017 mongo:latest",
-    "start:redis": "docker run --rm -d --name dev-redis -p 6379:6379 redis:latest",
+    "start:mongodb": "docker ps -q --filter 'name=dev-mongodb' | xargs -r docker stop && docker ps -aq --filter 'name=dev-mongodb' | xargs -r docker rm && docker run --rm -d --name dev-mongodb -p 27017:27017 -v $(pwd)/.mongodb:/data/db mongo:latest",
+    "start:redis": "docker ps -q --filter 'name=dev-redis' | xargs -r docker stop && docker ps -aq --filter 'name=dev-redis' | xargs -r docker rm && docker run --rm -d --name dev-redis -p 6379:6379 -v $(pwd)/.redis:/data redis:latest",
     "prod": "npm run build && docker-compose down && npm run build && docker-compose up -d",
-    "clean": "docker ps -aq | xargs -r docker stop && docker ps -aq | xargs -r docker rm && docker image prune -af && rm -rf node_modules dist .angular .nx .vscode package-lock.json",
+    "clean": "docker ps -aq | xargs -r docker stop && docker ps -aq | xargs -r docker rm && docker image prune -af && rm -rf node_modules dist .angular .nx .vscode .redis .mongodb package-lock.json",
     "repair": "npm run clean && docker image prune -af && npx npm-check-updates -u --reject tailwindcss && npm i --verbose",
     "build": "npx nx build frontend && npx nx build backend"
   },
