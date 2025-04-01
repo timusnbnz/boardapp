@@ -5,18 +5,19 @@ services:
     volumes:
       - ./dist/apps/frontend/browser:/usr/share/nginx/html
       - ./nginx-frontend.conf:/etc/nginx/nginx.conf
-    ports:
-      - "4200:80"
     networks:
       - board-network
 
   backend:
-    build:
-      context: ./
-      dockerfile: ./apps/backend/Dockerfile
     container_name: board-backend
-    ports:
-      - "3000"
+    image: node:latest
+    volumes:
+      - ./dist/apps/backend:/app/dist
+      - ./package.json:/app/package.json
+      - ./package-lock.json:/app/package-lock.json
+      - ./node_modules:/app/node_modules
+    working_dir: /app
+    command: ["sh", "-c", "npm install && node /app/dist/"]
     networks:
       - board-network
 
@@ -45,8 +46,6 @@ services:
   redis:
     image: redis:latest
     container_name: board-redis
-    ports:
-      - "6379:6379"
     networks:
       - board-network
 
