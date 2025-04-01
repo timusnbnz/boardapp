@@ -3,10 +3,12 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "start": "nx run-many --target=serve --projects=frontend,backend --parallel",
-    "prod": "npm run build && docker-compose down && docker image prune -f && npm run build && docker-compose up -d",
+    "start": "npm run start:mongodb && npm run start:redis && nx run-many --target=serve --projects=frontend,backend --parallel",
+    "start:mongodb": "docker run --rm -d --name dev-mongodb -p 27017:27017 mongo:latest",
+    "start:redis": "docker run --rm -d --name dev-redis -p 6379:6379 redis:latest",
+    "prod": "npm run build && docker-compose down && npm run build && docker-compose up -d",
     "clean": "docker ps -aq | xargs -r docker stop && docker ps -aq | xargs -r docker rm && docker image prune -af && rm -rf node_modules dist .angular .nx .vscode package-lock.json",
-    "repair": "npm run clean && npx npm-check-updates -u --reject tailwindcss && npm i --verbose",
+    "repair": "npm run clean && docker image prune -af && npx npm-check-updates -u --reject tailwindcss && npm i --verbose",
     "build": "npx nx build frontend && npx nx build backend"
   },
   "private": true,
