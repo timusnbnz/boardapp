@@ -35,6 +35,10 @@ services:
     container_name: board-mongodb
     ports:
       - "27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: "admin"
+      MONGO_INITDB_ROOT_PASSWORD: "supersecret"
+      MONGO_INITDB_DATABASE: "boardapp"
     networks:
       - board-network
 
