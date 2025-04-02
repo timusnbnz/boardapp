@@ -26,6 +26,7 @@ services:
     container_name: board-reverse-proxy
     volumes:
       - ./nginx-proxy.conf:/etc/nginx/nginx.conf
+      - ./.nginx-logs:/var/log/nginx
     ports:
       - "80:80"
     networks:
@@ -44,6 +45,23 @@ services:
   redis:
     image: redis:latest
     container_name: board-redis
+    networks:
+      - board-network
+
+  fail2ban:
+    image: crazymax/fail2ban:latest
+    container_name: board-fail2ban
+    volumes:
+      - ./.fail2ban:/data
+      - ./.nginx-logs:/var/log/nginx
+    environment:
+      - TZ=UTC
+      - F2B_LOG_LEVEL=INFO
+      - F2B_DB_PURGE_AGE=1d
+      - F2B_IPTABLES_CHAIN=DOCKER-USER
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
     networks:
       - board-network
 

@@ -14,13 +14,13 @@ Thumbs.db
 !.vscode/settings.json
 !.vscode/tasks.json
 
-# Framework-specific files
+# Framework/Service-specific files
 .angular
 .nx
-
-# Database files
 .mongodb
 .redis
+.fail2ban
+.nginx-logs
 
 # Build and dependency files
 /dist
