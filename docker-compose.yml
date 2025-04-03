@@ -32,13 +32,15 @@ services:
     networks:
       - board-network
 
-  mongodb:
-    image: mongo:latest
-    container_name: board-mongodb
+  postgresql:
+    image: postgres:latest
+    container_name: board-postgresql
     environment:
-      MONGO_INITDB_ROOT_USERNAME: "admin"
-      MONGO_INITDB_ROOT_PASSWORD: "supersecret"
-      MONGO_INITDB_DATABASE: "boardapp"
+      POSTGRES_USER: "admin"
+      POSTGRES_PASSWORD: "supersecret"
+      POSTGRES_DB: "boardapp"
+    volumes:
+      - ./.postgresql:/var/lib/postgresql/data
     networks:
       - board-network
 
