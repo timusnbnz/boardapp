@@ -17,13 +17,19 @@ export class AuthController {
 
   @Post('register')
   async register(@Body() body: { name: string; email: string; password: string }) {
-    const user = await this.authService.register(body.name, body.email, body.password);
-    return { statusCode: 201, user };
+    const result = await this.authService.register(body.name, body.email, body.password);
+    return { statusCode: result.statusCode, user: result.statusCode === 201 ? result : undefined, message: result.message };
   }
 
   @Post('profile')
   @UseGuards(AuthGuard('jwt'))
   getProfile(@Request() req) {
     return req.user;
+  }
+
+  @Post('password-reset')
+  async sendPasswordResetMail(@Body('email') email: string) {
+    const result = await this.authService.sendPasswordResetMail(email);
+    return { statusCode: result.statusCode, message: result.message };
   }
 }
