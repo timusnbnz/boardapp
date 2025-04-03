@@ -8,13 +8,14 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  name      String
-  email     String   @unique
-  password  String
-  createdAt DateTime @default(now())
-  Task      Task[]
-  TeamRoles TeamRole[]
+  id            String   @id @default(uuid())
+  name          String
+  email         String   @unique
+  password      String
+  createdAt     DateTime @default(now())
+  verifiedEmail Boolean  @default(false)
+  Task          Task[]
+  TeamRoles     TeamRole[]
 }
 
 model Task {
