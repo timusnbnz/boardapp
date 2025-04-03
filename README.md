@@ -16,31 +16,32 @@
 
 ## Skripte in package.json
 
-- **start**: Startet sowohl das Frontend als auch das Backend parallel. Ausführen mit `npm start`.
-- **cleanstart**: Löscht den Bildschirm und startet das Projekt neu. Ausführen mit `npm run cleanstart`.
-- **start:frontend**: Startet nur das Frontend. Ausführen mit `npm run start:frontend`.
-- **start:backend**: Startet nur das Backend. Ausführen mit `npm run start:backend`.
-- **repair**: Entfernt alle Build- und Cache-Dateien, installiert Abhängigkeiten neu. Ausführen mit `npm run repair`.
+- **start**: Startet PostgreSQL und Redis in temporären Docker-Containern und führt die Frontend- und Backend-Dienste parallel aus. Ausführen mit `npm start`.
+  - Startet PostgreSQL und Redis mit den Skripten `start:postgresql` und `start:redis`.
+  - Führt die Frontend- und Backend-Dienste parallel aus mit `nx serve frontend` und `nx serve backend`.
 
-## Befehle
+- **repair**: Bereinigt die Umgebung, aktualisiert Abhängigkeiten (außer `tailwindcss`), und installiert alle Abhängigkeiten neu. Ausführen mit `npm run repair`.
+  - Führt `npm run clean` aus, um alle Build- und Cache-Dateien zu entfernen.
+  - Bereinigt ungenutzte Docker-Images mit `docker image prune -af`.
+  - Aktualisiert Abhängigkeiten mit `npx npm-check-updates -u --reject tailwindcss`.
+  - Installiert Abhängigkeiten neu mit `npm ci --verbose --force`.
+  - Lädt Docker-Images mit `npm run pull:images`.
+  - Startet PostgreSQL, führt Datenbankmigrationen aus, und stoppt PostgreSQL.
 
-### `npm run start`
-Startet die MongoDB- und Redis-Datenbanken in temporären Docker-Containern und führt die Frontend- und Backend-Dienste parallel aus.
+- **component**: Generiert eine neue Angular-Komponente im Frontend-Projekt. Ausführen mit `npm run component -- COMPONENT_NAME=<Name>`.
+  - Nutzt `npx nx generate @schematics/angular:component`, um eine neue Komponente zu erstellen.
+  - Platziert die Komponente im Verzeichnis `apps/frontend/src/app`.
 
-### `npm run start:mongodb`
-Startet eine temporäre MongoDB-Instanz in einem Docker-Container auf Port 27017.
+- **prod**: Erstellt die Produktions-Builds, stoppt alle laufenden Docker-Container, und startet die Anwendung im Produktionsmodus mit Docker Compose. Ausführen mit `npm run prod`.
+  - Führt `docker-compose down` aus, um laufende Container zu stoppen.
+  - Baut die Anwendung mit `npm run build`.
+  - Startet die Anwendung im Produktionsmodus mit `docker-compose up -d`.
 
-### `npm run start:redis`
-Startet eine temporäre Redis-Instanz in einem Docker-Container auf Port 6379.
+- **fix:prisma**: Startet PostgreSQL, führt Datenbankmigrationen mit einem automatisch generierten Namen aus, und stoppt PostgreSQL. Ausführen mit `npm run fix:prisma`.
+  - Nutzt `npx prisma migrate dev --name auto-migration`, um Migrationen auszuführen.
 
-### `npm run prod`
-Erstellt die Produktions-Builds, stoppt alle laufenden Docker-Container, erstellt die Builds erneut und startet die Anwendung im Produktionsmodus mit Docker Compose.
+- **start:prisma**: Öffnet Prisma Studio, um die Datenbank zu inspizieren. Ausführen mit `npm run start:prisma`.
 
-### `npm run clean`
-Stoppt und entfernt alle laufenden Docker-Container, bereinigt ungenutzte Docker-Images und entfernt lokale Build- und Konfigurationsdateien.
-
-### `npm run repair`
-Führt den `clean`-Befehl aus, bereinigt ungenutzte Docker-Images, aktualisiert Abhängigkeiten (außer `tailwindcss`) und installiert alle Abhängigkeiten neu mit ausführlicher Ausgabe.
-
-### `npm run build`
-Erstellt die Frontend- und Backend-Builds mit `nx`.
+- **clean**: Entfernt alle Build- und Cache-Dateien sowie Docker-Container. Ausführen mit `npm run clean`.
+  - Stoppt und entfernt alle Docker-Container.
+  - Löscht Verzeichnisse wie `node_modules`, `dist`, und andere Cache-Dateien.
