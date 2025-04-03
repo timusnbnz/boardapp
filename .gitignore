@@ -17,7 +17,7 @@ Thumbs.db
 # Framework/Service-specific files
 .angular
 .nx
-.mongodb
+.postgresql
 .redis
 .fail2ban
 .nginx-logs
