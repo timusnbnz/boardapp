@@ -11,7 +11,7 @@ import { PrismaService } from '../../prisma.service';
   imports: [
     PassportModule,
     JwtModule.register({
-      secret: 'your-secret-key',
+      secret: 'superdupersecretkey',
       signOptions: { expiresIn: '1h' },
     }),
   ],
