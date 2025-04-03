@@ -8,7 +8,7 @@
     "start:redis": "docker ps -q --filter 'name=dev-redis' | xargs -r docker stop && docker ps -aq --filter 'name=dev-redis' | xargs -r docker rm && docker run --rm -d --name dev-redis -p 6379:6379 -v $(pwd)/.redis:/data redis:latest",
     "start:prisma": "npx prisma studio",
     "start:frontend": "nx serve frontend",
-    "start:backend": "nx serve backend",
+    "start:backend": "npx prisma migrate deploy && nx serve backend",
     "prod": "npm run build && docker-compose down && npm run build && docker-compose up -d",
     "clean": "docker ps -aq | xargs -r docker stop && docker ps -aq | xargs -r docker rm && docker image prune -af && rm -rf node_modules dist .angular .nx .vscode .redis .postgresql .nginx-logs .fail2ban",
     "repair": "npm run clean && docker image prune -af && npx npm-check-updates -u --reject tailwindcss && npm ci --verbose",
