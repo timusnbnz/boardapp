@@ -12,7 +12,7 @@
 
 ## Entwickeln
 
-- Wir nutzen [Preline](https://preline.io/) mit TailwindCSS für die UI
+- Wir nutzen [Preline](https://preline.co/) mit TailwindCSS für die UI
 
 ## Skripte in package.json
 
