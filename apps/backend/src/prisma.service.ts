@@ -33,10 +33,22 @@ export class PrismaService extends PrismaClient implements OnModuleInit, OnModul
 
   async onModuleInit() {
     await this.$connect();
+    console.log('Database connection successful');
   }
 
   async onModuleDestroy() {
     await this.$disconnect();
     this.redis.disconnect();
+  }
+
+  async testConnection() {
+    try {
+      await this.$connect();
+      console.log('Database connection test successful');
+    } catch (error) {
+      console.error('Database connection test failed:', error);
+    } finally {
+      await this.$disconnect();
+    }
   }
 }
