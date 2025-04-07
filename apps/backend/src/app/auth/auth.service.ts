@@ -2,14 +2,12 @@ import * as bcrypt from 'bcrypt';
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from '../../prisma.service';
-import { EmailService } from '../email/email.service';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly jwtService: JwtService,
     private readonly prisma: PrismaService,
-    private readonly emailService: EmailService,
   ) {}
 
   async login(email: string): Promise<{ accessToken: string }> {
@@ -58,7 +56,6 @@ export class AuthService {
     }
 
     const resetToken = this.generateResetToken();
-    await this.emailService.sendPasswordResetEmail(email, resetToken);
 
     return { statusCode: 200, message: 'Password reset email sent successfully' };
   }
