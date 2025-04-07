@@ -7,15 +7,19 @@
     "prod": "docker-compose down && npm run build && docker-compose up -d",
     "repair": "npm run clean && docker image prune -af && npx npm-check-updates -u --reject tailwindcss && npm i --verbose --force && npm run pull:images && npm run start:postgresql && sleep 10 && npx prisma migrate deploy",
     "component": "COMPONENT_NAME=$1 npx nx generate @schematics/angular:component $COMPONENT_NAME --project=frontend --path=apps/frontend/src/app",
-    "fix:prisma": "npm run start:postgresql && sleep 10 && npx prisma migrate dev && docker stop dev-postgresql",
+    
     "start:postgresql": "npm run delete:postgresql && docker run --rm -d --name dev-postgresql -p 5432:5432 -v $(pwd)/.postgresql:/var/lib/postgresql/data -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=supersecret -e POSTGRES_DB=boardapp postgres:latest",
     "start:redis": "npm run delete:redis && docker run --rm -d --name dev-redis -p 6379:6379 -v $(pwd)/.redis:/data redis:latest",
     "start:prisma": "npx prisma studio",
     "start:frontend": "nx serve frontend",
     "start:backend": "nx serve backend",
+    
     "delete:postgresql": "docker ps -q --filter 'name=dev-postgresql' | xargs -r docker stop && docker ps -aq --filter 'name=dev-postgresql' | xargs -r docker rm",
     "delete:redis": "docker ps -q --filter 'name=dev-redis' | xargs -r docker stop && docker ps -aq --filter 'name=dev-redis' | xargs -r docker rm",
+    
+    "fix:prisma": "npm run start:postgresql && sleep 10 && npx prisma migrate dev && docker stop dev-postgresql",
     "pull:images": "docker pull postgres:latest && docker pull redis:latest",
+    
     "clean": "docker ps -aq | xargs -r docker stop && docker ps -aq | xargs -r docker rm && rm -rf node_modules dist .angular .nx .vscode .redis .postgresql .nginx-logs .fail2ban prisma/migrations .package-lock.json",
     "build": "npm i --verbose && npx nx build frontend && npx nx build backend"
   },
