@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-board',
+  selector: 'page-board',
+  standalone: true,
   imports: [],
   templateUrl: './board.component.html',
-  styleUrl: './board.component.css'
+  styleUrls: ['./board.component.css']
 })
 export class BoardComponent {
-
+  items = ['Item 1', 'Item 2', 'Item 3'];
 }
