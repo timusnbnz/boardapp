@@ -15,6 +15,15 @@ import { HttpClientModule } from '@angular/common/http';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+  links = [
+    { label: 'Home', path: '/' },
+    { label: 'Account', path: '/account' },
+    { label: 'Board', path: '/board' },
+    { label: 'Settings', path: '/settings' },
+    { label: 'Tasks', path: '/tasks' },
+    { label: 'Team', path: '/team' }
+  ];
+
   constructor(private helloWorldService: HelloWorldService) {}
 
   ngOnInit(): void {
