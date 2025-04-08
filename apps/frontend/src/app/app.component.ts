@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 import { NavbarComponent } from "./ui-components/navbar/navbar.component";
 import { HelloWorldService } from './services/helloworld.service';
 import { HttpClientModule } from '@angular/common/http';
+import { AuthService } from './services/auth.service';
 
 @Component({
   imports: [
@@ -15,21 +16,30 @@ import { HttpClientModule } from '@angular/common/http';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  links = [
-    { label: 'Home', path: '/' },
-    { label: 'Account', path: '/account' },
-    { label: 'Board', path: '/board' },
-    { label: 'Settings', path: '/settings' },
-    { label: 'Tasks', path: '/tasks' },
-    { label: 'Team', path: '/team' }
-  ];
+  loggedIn = false;
+  links: { label: string; path: string }[] = [];
 
-  constructor(private helloWorldService: HelloWorldService) {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
-    this.helloWorldService.getHelloWorldMessage().subscribe(
-      (message) => console.log(message),
-      (error) => console.error('Error fetching message:', error)
-    );
+    this.authService.loggedIn$.subscribe((isLoggedIn) => {
+      this.loggedIn = isLoggedIn;
+      this.updateLinks();
+    });
+  }
+
+  private updateLinks(): void {
+    if (this.loggedIn) {
+      this.links = [
+        { label: 'Dashboard', path: '/dashboard' },
+        { label: 'Team', path: '/team' },
+        { label: 'Settings', path: '/settings' },
+        { label: 'Abmelden', path: '/logout' },
+      ];
+    } else {
+      this.links = [
+        { label: 'Login', path: '/login' },
+      ];
+    }
   }
 }
