@@ -15,14 +15,14 @@ model User {
   createdAt     DateTime @default(now())
   verifiedEmail Boolean  @default(false)
   Task          Task[]
-  TeamRoles     TeamRole[]
+  teams         Team[]   @relation("TeamMembers")
 }
 
 model Task {
   id          String   @id @default(uuid())
   title       String
   description String?
-  completed   Boolean  @default(false)
+  status      String   @default("pending")
   userId      String
   user        User     @relation(fields: [userId], references: [id])
   teamId      String?
@@ -33,16 +33,6 @@ model Team {
   id          String     @id @default(uuid())
   name        String
   createdAt   DateTime   @default(now())
-  members     TeamRole[]
+  members     User[]     @relation("TeamMembers")
   tasks       Task[]
-}
-
-model TeamRole {
-  id        String   @id @default(uuid())
-  userId    String
-  teamId    String
-  role      String
-  user      User     @relation(fields: [userId], references: [id])
-  team      Team     @relation(fields: [teamId], references: [id])
-  createdAt DateTime @default(now())
 }
