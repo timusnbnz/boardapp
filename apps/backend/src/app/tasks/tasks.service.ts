@@ -5,12 +5,22 @@ import { PrismaService } from '../../prisma.service';
 export class TasksService {
   constructor(private readonly prisma: PrismaService) {}
 
-  getAllTasks() {
-    return this.prisma.task.findMany();
+  getAllTasks(userId: string) {
+    return this.prisma.task.findMany({
+      where: {
+        userId: userId,
+      },
+    });
   }
 
   createTask(data: { title: string; description?: string; userId: string }) {
-    return this.prisma.task.create({ data });
+    return this.prisma.task.create({
+      data: {
+        title: data.title,
+        description: data.description,
+        userId: data.userId,
+      },
+    });
   }
 
   getTaskById(id: string) {
