@@ -13,11 +13,15 @@ export class AuthService {
   private loggedInSubject: BehaviorSubject<boolean>;
   loggedIn$: Observable<boolean>;
 
-  constructor(private http: HttpClient, private cookieService: CookieService, private router: Router) {
+  constructor(
+    private http: HttpClient,
+    private cookieService: CookieService,
+    private router: Router,
+  ) {
     this.loggedInSubject = new BehaviorSubject<boolean>(this.cookieService.check('accessToken'));
     this.loggedIn$ = this.loggedInSubject.asObservable();
   }
-  
+
   login(credentials: { email: string; password: string }): Observable<any> {
     return this.http.post(`${this.baseUrl}/login`, credentials).pipe(
       tap((response: any) => {
@@ -26,20 +30,12 @@ export class AuthService {
           this.updateLoggedInStatus();
           this.router.navigate(['/']);
         }
-      })
+      }),
     );
   }
 
   register(user: { name: string; email: string; password: string }): Observable<any> {
     return this.http.post(`${this.baseUrl}/register`, user);
-  }
-
-  getProfile(): Observable<any> {
-    return this.http.post(`${this.baseUrl}/profile`, {});
-  }
-
-  sendPasswordResetMail(email: string): Observable<any> {
-    return this.http.post(`${this.baseUrl}/password-reset`, { email });
   }
 
   updateLoggedInStatus(): void {
@@ -50,5 +46,10 @@ export class AuthService {
   logout(): void {
     this.cookieService.delete('accessToken', '/');
     this.updateLoggedInStatus();
+  }
+
+  getAuthHeader(): { Authorization: string } {
+    const token = this.cookieService.get('accessToken');
+    return { Authorization: `Bearer ${token}` };
   }
 }

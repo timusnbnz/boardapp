@@ -11,6 +11,7 @@ import { CanActivate, Router } from '@angular/router';
 import { AuthService } from './services/auth.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { TeamComponent } from './pages/team/team.component';
 
 @Injectable({ providedIn: 'root' })
 export class RootRedirectGuard implements CanActivate {
@@ -34,6 +35,7 @@ export const appRoutes: Route[] = [
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'account', component: AccountComponent, canActivate: [AuthGuard] },
   { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
+  { path: 'team', component: TeamComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'logout', component: LogoutComponent },
 ];
