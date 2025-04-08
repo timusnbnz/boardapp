@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { NavbarComponent } from "./ui-components/navbar/navbar.component";
-import { HelloWorldService } from './services/helloworld.service';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from './services/auth.service';
 
@@ -31,9 +30,8 @@ export class AppComponent implements OnInit {
   private updateLinks(): void {
     if (this.loggedIn) {
       this.links = [
-        { label: 'Dashboard', path: '/dashboard' },
         { label: 'Team', path: '/team' },
-        { label: 'Settings', path: '/settings' },
+        { label: 'Einstellungen', path: '/settings' },
         { label: 'Abmelden', path: '/logout' },
       ];
     } else {
