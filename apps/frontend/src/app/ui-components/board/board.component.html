@@ -1,67 +1,29 @@
-<div class="w-full m-auto lg:ps-64">
+<div class="w-full mx-auto lg:ps-64">
   <div class="p-4 sm:p-6 space-y-4 sm:space-y-6">
     <div class="grid grid-cols-4 gap-4" id="kanban-board">
       <div class="bg-white p-4 rounded-lg shadow-lg">
         <div class="flex justify-between items-center mb-4">
           <h2 class="text-xl font-semibold">To Do</h2>
           <button
-            type="button"
-            class="hs-tooltip-toggle inline-flex items-center justify-center w-8 h-8 bg-blue-600 text-white rounded-full hover:bg-blue-700"
-            data-hs-overlay="#add-task-modal"
+            class="inline-flex items-center justify-center w-8 h-8 bg-blue-600 text-white rounded-full hover:bg-blue-700"
           >
             +
-            <span
-              class="hs-tooltip hs-tooltip-top absolute z-10 hidden group-hover:block text-xs bg-gray-800 text-white rounded px-2 py-1 mt-10"
-              role="tooltip"
-            >
-              Neues Ticket
-            </span>
           </button>
         </div>
-        <div class="nested-sortable space-y-2" id="todo-list">
+        <div
+          cdkDropList
+          #todoList="cdkDropList"
+          [cdkDropListData]="todo"
+          [cdkDropListConnectedTo]="[todoList, doneList, inProgressList]"
+          (cdkDropListDropped)="drop($event)"
+          class="tasklist"
+        >
           <div
-            class="bg-gray-200 p-3 rounded cursor-move flex items-center justify-between w-full"
-            id="task1"
+            class="bg-gray-200 p-3 rounded cursor-move mb-2"
+            *ngFor="let item of todo"
+            cdkDrag
           >
-            <span class="flex-1">Social media</span>
-            <div class="flex -space-x-2">
-              <img
-                class="inline-block size-8 rounded-full ring-2 ring-white dark:ring-neutral-900"
-                src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80"
-                alt="Avatar"
-              />
-              <img
-                class="inline-block size-8 rounded-full ring-2 ring-white dark:ring-neutral-900"
-                src="https://images.unsplash.com/photo-1531927557220-a9e23c1e4794?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80"
-                alt="Avatar"
-              />
-              <img
-                class="inline-block size-8 rounded-full ring-2 ring-white dark:ring-neutral-900"
-                src="https://images.unsplash.com/photo-1541101767792-f9b2b1c4f127?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&&auto=format&fit=facearea&facepad=3&w=300&h=300&q=80"
-                alt="Avatar"
-              />
-            </div>
-            <button class="ml-4 hover:opacity-70">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="w-5 h-5"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="black"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <path d="M12 20h9" />
-                <path d="M16.5 3.5a2.121 2.121 0 113 3L7 19H4v-3L16.5 3.5z" />
-              </svg>
-            </button>
-          </div>
-          <div class="bg-gray-200 p-3 rounded cursor-move" id="task2">
-            Review survey results
-          </div>
-          <div class="bg-gray-200 p-3 rounded cursor-move" id="task3">
-            Research video marketing
+            {{ item }}
           </div>
         </div>
       </div>
@@ -74,20 +36,22 @@
             data-hs-overlay="#add-task-modal"
           >
             +
-            <span
-              class="hs-tooltip hs-tooltip-top absolute z-10 hidden group-hover:block text-xs bg-gray-800 text-white rounded px-2 py-1 mt-10"
-              role="tooltip"
-            >
-              Neues Ticket
-            </span>
           </button>
         </div>
-        <div class="nested-sortable space-y-2" id="in-progress-list">
-          <div class="bg-yellow-200 p-3 rounded cursor-move" id="task4">
-            Blog post live
-          </div>
-          <div class="bg-yellow-200 p-3 rounded cursor-move" id="task5">
-            Email campaign
+        <div
+          cdkDropList
+          #inProgressList="cdkDropList"
+          [cdkDropListData]="inProgress"
+          [cdkDropListConnectedTo]="[todoList, doneList, inProgressList]"
+          (cdkDropListDropped)="drop($event)"
+          class="tasklist"
+        >
+          <div
+            class="bg-yellow-200 p-3 rounded cursor-move mb-2"
+            *ngFor="let item of inProgress"
+            cdkDrag
+          >
+            {{ item }}
           </div>
         </div>
       </div>
@@ -100,20 +64,22 @@
             data-hs-overlay="#add-task-modal"
           >
             +
-            <span
-              class="hs-tooltip hs-tooltip-top absolute z-10 hidden group-hover:block text-xs bg-gray-800 text-white rounded px-2 py-1 mt-10"
-              role="tooltip"
-            >
-              Neues Ticket
-            </span>
           </button>
         </div>
-        <div class="nested-sortable space-y-2" id="done-list">
-          <div class="bg-green-200 p-3 rounded cursor-move" id="task6">
-            Morning emails and to-do list
-          </div>
-          <div class="bg-green-200 p-3 rounded cursor-move" id="task7">
-            Blog post
+        <div
+          cdkDropList
+          #doneList="cdkDropList"
+          [cdkDropListData]="done"
+          [cdkDropListConnectedTo]="[todoList, doneList, inProgressList]"
+          (cdkDropListDropped)="drop($event)"
+          class="tasklist"
+        >
+          <div
+            class="bg-green-200 p-3 rounded cursor-move mb-2"
+            *ngFor="let item of done"
+            cdkDrag
+          >
+            {{ item }}
           </div>
         </div>
       </div>
