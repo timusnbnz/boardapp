@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { NavbarComponent } from "./ui-components/navbar/navbar.component";
 import { HttpClientModule } from '@angular/common/http';
@@ -18,12 +18,13 @@ export class AppComponent implements OnInit {
   loggedIn = false;
   links: { label: string; path: string }[] = [];
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private changeDetectorRef: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.authService.loggedIn$.subscribe((isLoggedIn) => {
       this.loggedIn = isLoggedIn;
       this.updateLinks();
+      this.changeDetectorRef.detectChanges();
     });
   }
 
