@@ -25,7 +25,7 @@ export class TasksService {
     }
   }
 
-  createTask(task: Task): boolean {
+  async createTask(task: Task): Promise<any> {
     this.http
       .post(this.baseUrl + 'createTask', task, {
         headers: this.authService.getAuthHeader(),
@@ -46,6 +46,19 @@ export class TasksService {
     try {
       const response = await this.http
         .get(this.baseUrl + 'get', { headers: this.authService.getAuthHeader() })
+        .toPromise();
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async updateTask(id: string, task: Partial<Task>): Promise<any> {
+    try {
+      const response = await this.http
+        .post(`${this.baseUrl}updateTask?id=${id}`, task, {
+          headers: this.authService.getAuthHeader(),
+        })
         .toPromise();
       return response;
     } catch (error) {

@@ -35,6 +35,27 @@ export class BoardComponent implements OnInit {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
       transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex);
+      const movedItem = event.container.data[event.currentIndex];
+      const targetList =
+        event.container.id === 'cdk-drop-list-0'
+          ? 'todo'
+          : event.container.id === 'cdk-drop-list-1'
+            ? 'inProgress'
+            : 'done';
+      this.updateTaskStatus(movedItem, targetList);
+    }
+  }
+
+  async updateTaskStatus(task: Task, newStatus: string) {
+    if (!task.id) {
+      console.error('Task ID is undefined. Cannot update task.');
+      return;
+    }
+    try {
+      const updatedTask = { ...task, status: newStatus };
+      await this.taskService.updateTask(task.id, updatedTask);
+    } catch (error) {
+      console.error('Error updating task status:', error);
     }
   }
 }

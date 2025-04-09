@@ -33,9 +33,9 @@ export class TasksController {
     return this.tasksService.getTaskById(id);
   }
 
-  @Post('updateTask:id')
+  @Post('updateTask')
   updateTask(
-    @Param('id') id: string,
+    @Query('id') id: string,
     @Body() body: { title?: string; description?: string; status?: string },
     @Req() req: any,
   ) {
