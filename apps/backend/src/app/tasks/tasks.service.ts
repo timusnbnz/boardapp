@@ -16,4 +16,8 @@ export class TasksService {
   getTaskById(id: string) {
     return this.prisma.task.findUnique({ where: { id } });
   }
+
+  updateTask(id: string, data: { title?: string; description?: string; status?: string }) {
+    return this.prisma.task.update({ where: { id }, data });
+  }
 }
