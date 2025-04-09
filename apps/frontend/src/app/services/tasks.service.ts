@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
-import { Task } from './interfaces';
+import { Task } from '../interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -15,8 +14,15 @@ export class TasksService {
     private authService: AuthService,
   ) {}
 
-  getAllTasks(): Observable<any> {
-    return this.http.get(`${this.baseUrl}`);
+  async getAllTasks(status: String): Promise<any> {
+    try {
+      const response = await this.http
+        .get(`${this.baseUrl}getTasks?status=${status}`, { headers: this.authService.getAuthHeader() })
+        .toPromise();
+      return response;
+    } catch (error) {
+      throw error;
+    }
   }
 
   createTask(task: Task): boolean {
@@ -36,7 +42,14 @@ export class TasksService {
     return false;
   }
 
-  getTaskById(id: string): Observable<any> {
-    return this.http.get(`${this.baseUrl}/${id}`);
+  async getTaskById(id: string): Promise<any> {
+    try {
+      const response = await this.http
+        .get(this.baseUrl + 'get', { headers: this.authService.getAuthHeader() })
+        .toPromise();
+      return response;
+    } catch (error) {
+      throw error;
+    }
   }
 }

@@ -12,11 +12,12 @@ export class DashboardComponent {
   constructor(
     private taskService: TasksService,
   ) {}
-
+  
   test() {
     this.taskService.createTask({
       title: 'Fortnite',
       description: 'Battle Royale',
+      status: 'done'
     });
   }
 }

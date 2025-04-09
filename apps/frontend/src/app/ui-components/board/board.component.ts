@@ -1,12 +1,8 @@
-import { Component } from '@angular/core';
-import {
-  CdkDrag,
-  CdkDragDrop,
-  CdkDropList,
-  moveItemInArray,
-  transferArrayItem,
-} from '@angular/cdk/drag-drop';
+import { Component, OnInit } from '@angular/core';
+import { CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { NgFor } from '@angular/common';
+import { TasksService } from '../../services/tasks.service';
+import { Task } from '../../interfaces';
 
 @Component({
   selector: 'ui-board',
@@ -14,28 +10,31 @@ import { NgFor } from '@angular/common';
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.css'],
 })
-export class BoardComponent {
-  todo = ['Social Media', 'Review survey results', 'research video marketing'];
-  inProgress = ['Blog post live', 'E-Mail campaign'];
-  done = ['Morning emails', 'Blog post'];
+export class BoardComponent implements OnInit {
+  constructor(private taskService: TasksService) {}
 
-  drop(event: CdkDragDrop<string[]>) {
+  todo: Task[] = [];
+  inProgress: Task[] = [];
+  done: Task[] = [];
+
+  async ngOnInit() {
+    this.todo = await this.getTasks('todo');
+    this.inProgress = await this.getTasks('inProgress');
+    this.done = await this.getTasks('done');
+    console.log(this.todo[0].id);
+  }
+
+  getTasks(status: string): Promise<Task[]> {
+    return this.taskService.getAllTasks(status).then((tasks) => {
+      return tasks;
+    });
+  }
+
+  drop(event: CdkDragDrop<Task[]>) {
     if (event.previousContainer === event.container) {
-      moveItemInArray(
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex,
-      );
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex,
-      );
+      transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex);
     }
-    console.log('Updated TODO list:', this.todo);
-    console.log('Updated IN PROGRESS list:', this.inProgress);
-    console.log('Updated DONE list:', this.done);
   }
 }
