@@ -22,12 +22,18 @@ Fahre fort, wo du aufgehört hast.
         </ng-container>
       </p>
       <!-- End Title -->
-
-      <!-- Show login form only when not logged in -->
+      <!-- Get Started Button - only show when NOT logged in -->
       <ng-container *ngIf="!isLoggedIn">
-        <ui-loginform></ui-loginform>
+        <button (click)="toggleLoginModal()" type="button" class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-hidden focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
+          Get started!
+        </button>
       </ng-container>
-      
+
+      <!-- Login Modal (wird nur angezeigt, wenn showLoginModal true ist) -->
+      @if(showLoginModal && !isLoggedIn) {
+        <ui-login-modal (close)="toggleLoginModal()"></ui-login-modal>
+      }
+
       <!-- Show dashboard access when logged in -->
       <ng-container *ngIf="isLoggedIn">
         <div class="mt-8 flex flex-col sm:flex-row gap-3">
