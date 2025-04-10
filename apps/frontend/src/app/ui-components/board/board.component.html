@@ -1,13 +1,27 @@
-<div class="p-4 sm:p-6 space-y-4 sm:space-y-6">
+<div
+  class="flex flex-col bg-white border border-gray-200 shadow-lg rounded-xl p-4 md:p-5 w-full"
+>
+  <div class="flex justify-between items-center mb-4">
+    <div>
+      <h2 class="text-3xl font-bold text-gray-800">Übersicht</h2>
+      <p class="mt-1 ml-1 text-xs font-medium uppercase text-gray-500">
+        Zugewiesene Aufgaben
+      </p>
+    </div>
+    <select
+      class="py-3 px-4 pe-9 w-48 border-gray-400 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+    >
+      <option selected="">Alle Teams</option>
+      <option>Team 1</option>
+      <option>Team 2</option>
+      <option>Team 3</option>
+    </select>
+  </div>
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-4" id="kanban-board">
-    <div class="bg-white p-4 rounded-lg shadow-lg">
+    <div class="bg-white p-4 rounded-lg shadow-l border border-gray-200">
       <div class="flex justify-between items-center mb-4">
-        <h2 class="text-xl font-semibold">To Do</h2>
-        <button
-          class="inline-flex items-center justify-center w-8 h-8 bg-blue-600 text-white rounded-full hover:bg-blue-700"
-        >
-          +
-        </button>
+        <h3 class="text-2xl">To Do</h3>
+        <ui-create-task [status]="'todo'" />
       </div>
       <div
         cdkDropList
@@ -22,20 +36,25 @@
           *ngFor="let item of todo"
           cdkDrag
         >
-          {{ item.title }}
+          <div class="flex justify-between items-center">
+            {{ item.title }}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 512 512"
+              height="12"
+            >
+              <path
+                d="M362.7 19.3L314.3 67.7 444.3 197.7l48.4-48.4c25-25 25-65.5 0-90.5L453.3 19.3c-25-25-65.5-25-90.5 0zm-71 71L58.6 323.5c-10.4 10.4-18 23.3-22.2 37.4L1 481.2C-1.5 489.7 .8 498.8 7 505s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L421.7 220.3 291.7 90.3z"
+              />
+            </svg>
+          </div>
         </div>
       </div>
     </div>
-    <div class="bg-white p-4 rounded-lg shadow-lg">
+    <div class="bg-white p-4 rounded-lg shadow-l border border-gray-200">
       <div class="flex justify-between items-center mb-4">
-        <h2 class="text-xl font-semibold">In Bearbeitung</h2>
-        <button
-          type="button"
-          class="hs-tooltip-toggle inline-flex items-center justify-center w-8 h-8 bg-blue-600 text-white rounded-full hover:bg-blue-700"
-          data-hs-overlay="#add-task-modal"
-        >
-          +
-        </button>
+        <h3 class="text-2xl">In Bearbeitung</h3>
+        <ui-create-task [status]="'inProgress'" />
       </div>
       <div
         cdkDropList
@@ -50,20 +69,25 @@
           *ngFor="let item of inProgress"
           cdkDrag
         >
-          {{ item.title }}
+          <div class="flex justify-between items-center">
+            {{ item.title }}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 512 512"
+              height="12"
+            >
+              <path
+                d="M362.7 19.3L314.3 67.7 444.3 197.7l48.4-48.4c25-25 25-65.5 0-90.5L453.3 19.3c-25-25-65.5-25-90.5 0zm-71 71L58.6 323.5c-10.4 10.4-18 23.3-22.2 37.4L1 481.2C-1.5 489.7 .8 498.8 7 505s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L421.7 220.3 291.7 90.3z"
+              />
+            </svg>
+          </div>
         </div>
       </div>
     </div>
-    <div class="bg-white p-4 rounded-lg shadow-lg">
+    <div class="bg-white p-4 rounded-lg shadow-l border border-gray-200">
       <div class="flex justify-between items-center mb-4">
-        <h2 class="text-xl font-semibold">Erledigt</h2>
-        <button
-          type="button"
-          class="hs-tooltip-toggle inline-flex items-center justify-center w-8 h-8 bg-blue-600 text-white rounded-full hover:bg-blue-700"
-          data-hs-overlay="#add-task-modal"
-        >
-          +
-        </button>
+        <h3 class="text-2xl">Erledigt</h3>
+        <ui-create-task [status]="'done'" />
       </div>
       <div
         cdkDropList
@@ -78,7 +102,30 @@
           *ngFor="let item of done"
           cdkDrag
         >
-          {{ item.title }}
+          <div class="flex justify-between items-center">
+            {{ item.title }}
+            <div class="flex justify-between items-center">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 512 512"
+                height="12"
+              >
+                <path
+                  d="M32 32l448 0c17.7 0 32 14.3 32 32l0 32c0 17.7-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96L0 64C0 46.3 14.3 32 32 32zm0 128l448 0 0 256c0 35.3-28.7 64-64 64L96 480c-35.3 0-64-28.7-64-64l0-256zm128 80c0 8.8 7.2 16 16 16l160 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-160 0c-8.8 0-16 7.2-16 16z"
+                />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 512 512"
+                height="12"
+                class="ml-2"
+              >
+                <path
+                  d="M362.7 19.3L314.3 67.7 444.3 197.7l48.4-48.4c25-25 25-65.5 0-90.5L453.3 19.3c-25-25-65.5-25-90.5 0zm-71 71L58.6 323.5c-10.4 10.4-18 23.3-22.2 37.4L1 481.2C-1.5 489.7 .8 498.8 7 505s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L421.7 220.3 291.7 90.3z"
+                />
+              </svg>
+            </div>
+          </div>
         </div>
       </div>
     </div>

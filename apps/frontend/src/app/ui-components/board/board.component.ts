@@ -3,10 +3,11 @@ import { CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem }
 import { NgFor } from '@angular/common';
 import { TasksService } from '../../services/tasks.service';
 import { Task } from '../../interfaces';
+import { CreateTaskComponent } from '../create-task/create-task.component';
 
 @Component({
   selector: 'ui-board',
-  imports: [CdkDrag, CdkDropList, NgFor],
+  imports: [CdkDrag, CdkDropList, NgFor, CreateTaskComponent],
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.css'],
 })
@@ -21,7 +22,6 @@ export class BoardComponent implements OnInit {
     this.todo = await this.getTasks('todo');
     this.inProgress = await this.getTasks('inProgress');
     this.done = await this.getTasks('done');
-    console.log(this.todo[0].id);
   }
 
   getTasks(status: string): Promise<Task[]> {

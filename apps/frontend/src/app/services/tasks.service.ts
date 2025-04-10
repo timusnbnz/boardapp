@@ -45,7 +45,7 @@ export class TasksService {
   async getTaskById(id: string): Promise<any> {
     try {
       const response = await this.http
-        .get(this.baseUrl + 'get', { headers: this.authService.getAuthHeader() })
+        .get(`${this.baseUrl}get?id=${id}`, { headers: this.authService.getAuthHeader() })
         .toPromise();
       return response;
     } catch (error) {

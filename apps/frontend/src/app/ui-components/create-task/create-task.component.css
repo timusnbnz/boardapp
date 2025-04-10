@@ -1,0 +1,7 @@
+.hs-overlay {
+  backdrop-filter: blur(8px);
+}
+
+.hidden {
+  display: none;
+}
