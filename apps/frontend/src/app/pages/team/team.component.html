@@ -1,1 +1,82 @@
-<p>team works!</p>
+<div class="flex flex-col w-[75%] justify-center items-center mx-auto mt-2">
+  <div
+    class="flex flex-col bg-white/70 backdrop-blur-md border border-gray-200 shadow-lg rounded-xl p-4 md:p-5 w-full"
+  >
+    <div class="flex justify-between items-center mb-4">
+      <div>
+        <h2 class="text-3xl font-bold text-gray-800">Team</h2>
+        <p class="mt-1 ml-1 text-xs font-medium uppercase text-gray-500">
+          Teammitglieder verwalten
+        </p>
+      </div>
+      <select
+        class="py-3 px-4 pe-9 w-48 border-gray-400 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none bg-transparent"
+      >
+        <option>Team 1</option>
+        <option>Team 2</option>
+        <option>Team 3</option>
+      </select>
+    </div>
+    <div class="-m-1.5 overflow-x-auto w-full mt-4">
+      <div class="p-1.5 min-w-full inline-block align-middle">
+        <div class="overflow-hidden">
+          <table class="min-w-full divide-y divide-gray-200">
+            <thead>
+              <tr>
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
+                >
+                  Name
+                </th>
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
+                >
+                  E-Mail
+                </th>
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
+                >
+                  Rolle
+                </th>
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase"
+                >
+                  Aktionen
+                </th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200">
+              <tr *ngFor="let member of teamMembers">
+                <td
+                  class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800"
+                >
+                  {{ member.name }}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
+                  {{ member.age }}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
+                  {{ member.address }}
+                </td>
+                <td
+                  class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium"
+                >
+                  <button
+                    type="button"
+                    class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 focus:outline-hidden focus:text-blue-800 disabled:opacity-50 disabled:pointer-events-none"
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
