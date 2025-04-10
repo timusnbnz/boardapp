@@ -4,10 +4,11 @@ import { NgFor } from '@angular/common';
 import { TasksService } from '../../services/tasks.service';
 import { Task } from '../../interfaces';
 import { CreateTaskComponent } from '../create-task/create-task.component';
+import { ViewTaskComponent } from "../view-task/view-task.component";
 
 @Component({
   selector: 'ui-board',
-  imports: [CdkDrag, CdkDropList, NgFor, CreateTaskComponent],
+  imports: [CdkDrag, CdkDropList, NgFor, CreateTaskComponent, ViewTaskComponent],
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.css'],
 })
@@ -47,15 +48,8 @@ export class BoardComponent implements OnInit {
   }
 
   async updateTaskStatus(task: Task, newStatus: string) {
-    if (!task.id) {
-      console.error('Task ID is undefined. Cannot update task.');
-      return;
-    }
-    try {
+    if (!task.id) return;
       const updatedTask = { ...task, status: newStatus };
       await this.taskService.updateTask(task.id, updatedTask);
-    } catch (error) {
-      console.error('Error updating task status:', error);
-    }
   }
 }

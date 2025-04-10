@@ -1,5 +1,5 @@
 <div
-  class="flex flex-col bg-white border border-gray-200 shadow-lg rounded-xl p-4 md:p-5 w-full"
+  class="flex flex-col bg-white/70 backdrop-blur-md border border-gray-200 shadow-lg rounded-xl p-4 md:p-5 w-full"
 >
   <div class="flex justify-between items-center mb-4">
     <div>
@@ -9,7 +9,7 @@
       </p>
     </div>
     <select
-      class="py-3 px-4 pe-9 w-48 border-gray-400 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+      class="py-3 px-4 pe-9 w-48 border-gray-400 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none bg-transparent"
     >
       <option selected="">Alle Teams</option>
       <option>Team 1</option>
@@ -18,9 +18,9 @@
     </select>
   </div>
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-4" id="kanban-board">
-    <div class="bg-white p-4 rounded-lg shadow-l border border-gray-200">
+    <div class="bg-white p-4 rounded-lg shadow-l border border-gray-200 bg-transparent">
       <div class="flex justify-between items-center mb-4">
-        <h3 class="text-2xl">To Do</h3>
+        <h3 class="text-2xl">Zu erledigen</h3>
         <ui-create-task [status]="'todo'" />
       </div>
       <div
@@ -37,7 +37,7 @@
           cdkDrag
         >
           <div class="flex justify-between items-center">
-            {{ item.title }}
+            <ui-view-task [task]="item" />
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 512 512"
@@ -51,7 +51,7 @@
         </div>
       </div>
     </div>
-    <div class="bg-white p-4 rounded-lg shadow-l border border-gray-200">
+    <div class="bg-white p-4 rounded-lg shadow-l border border-gray-200 bg-transparent">
       <div class="flex justify-between items-center mb-4">
         <h3 class="text-2xl">In Bearbeitung</h3>
         <ui-create-task [status]="'inProgress'" />
@@ -84,7 +84,7 @@
         </div>
       </div>
     </div>
-    <div class="bg-white p-4 rounded-lg shadow-l border border-gray-200">
+    <div class="bg-white p-4 rounded-lg shadow-l border border-gray-200 bg-transparent">
       <div class="flex justify-between items-center mb-4">
         <h3 class="text-2xl">Erledigt</h3>
         <ui-create-task [status]="'done'" />
