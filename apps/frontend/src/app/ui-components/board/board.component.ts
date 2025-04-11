@@ -4,11 +4,13 @@ import { NgFor } from '@angular/common';
 import { TasksService } from '../../services/tasks.service';
 import { Task } from '../../interfaces';
 import { CreateTaskComponent } from '../create-task/create-task.component';
-import { ViewTaskComponent } from "../view-task/view-task.component";
+import { ViewTaskComponent } from '../view-task/view-task.component';
+import { EditTaskComponent } from '../edit-task/edit-task.component';
+import { ArchiveTaskComponent } from "../archive-task/archive-task.component";
 
 @Component({
   selector: 'ui-board',
-  imports: [CdkDrag, CdkDropList, NgFor, CreateTaskComponent, ViewTaskComponent],
+  imports: [CdkDrag, CdkDropList, NgFor, CreateTaskComponent, ViewTaskComponent, EditTaskComponent, ArchiveTaskComponent],
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.css'],
 })
@@ -20,6 +22,10 @@ export class BoardComponent implements OnInit {
   done: Task[] = [];
 
   async ngOnInit() {
+    this.refreshBoard();
+  }
+
+  private async refreshBoard() {
     this.todo = await this.getTasks('todo');
     this.inProgress = await this.getTasks('inProgress');
     this.done = await this.getTasks('done');
@@ -49,7 +55,7 @@ export class BoardComponent implements OnInit {
 
   async updateTaskStatus(task: Task, newStatus: string) {
     if (!task.id) return;
-      const updatedTask = { ...task, status: newStatus };
-      await this.taskService.updateTask(task.id, updatedTask);
+    const updatedTask = { ...task, status: newStatus };
+    await this.taskService.updateTask(task.id, updatedTask);
   }
 }
