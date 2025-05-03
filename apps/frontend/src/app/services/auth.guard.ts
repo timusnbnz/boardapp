@@ -8,6 +8,10 @@ import {
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 
+/**
+ * Route Guard für geschützte Seiten
+ * Leitet unauthentifizierte Benutzer zum Login um
+ */
 @Injectable({
   providedIn: 'root',
 })

@@ -3,6 +3,9 @@ import { PrismaClient } from '@prisma/client';
 import prismaCacheMiddleware from 'prisma-cache-middleware';
 import Redis from 'ioredis';
 
+/**
+ * Service für den Datenbankzugriff via Prisma ORM mit Redis-Caching
+ */
 @Injectable()
 export class PrismaService extends PrismaClient implements OnModuleInit, OnModuleDestroy {
   private redis = new Redis();
@@ -19,7 +22,7 @@ export class PrismaService extends PrismaClient implements OnModuleInit, OnModul
           {
             model: 'User',
             action: 'findFirst',
-            ttl: 20,
+            ttl: 20,            // Cache-Lebensdauer in Sekunden
             keyPrefix: 'myCache',
           },
           {

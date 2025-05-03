@@ -5,6 +5,10 @@ import { tap } from 'rxjs/operators';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 
+/**
+ * Service für Authentifizierungsfunktionen im Frontend
+ * Verwaltet Login-Status, Token und API-Kommunikation
+ */
 @Injectable({
   providedIn: 'root',
 })

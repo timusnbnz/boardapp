@@ -8,6 +8,10 @@ import { ViewTaskComponent } from '../view-task/view-task.component';
 import { EditTaskComponent } from '../edit-task/edit-task.component';
 import { ArchiveTaskComponent } from "../archive-task/archive-task.component";
 
+/**
+ * Kanban-Board-Komponente mit Drag-and-Drop-Funktionalität
+ * Verwaltet Tasks in drei Spalten: Todo, In Bearbeitung und Erledigt
+ */
 @Component({
   selector: 'ui-board',
   imports: [CdkDrag, CdkDropList, NgFor, CreateTaskComponent, ViewTaskComponent, EditTaskComponent, ArchiveTaskComponent],

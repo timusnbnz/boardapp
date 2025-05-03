@@ -4,6 +4,9 @@ import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from '../../prisma.service';
 
+/**
+ * Service zur Verwaltung von Authentifizierung und Benutzerdaten
+ */
 @Injectable()
 export class AuthService {
   constructor(
@@ -27,6 +30,7 @@ export class AuthService {
   }
 
   private async hashPassword(password: string): Promise<string> {
+    // Der Salt-Wert 10 könnte kommentiert werden, wenn er projektspezifisch ist
     return bcrypt.hash(password, 10);
   }
 

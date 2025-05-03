@@ -1,6 +1,10 @@
 import { Controller, Get, Post, Body, Param } from '@nestjs/common';
 import { TeamService } from './team.service';
 
+/**
+ * Controller für die Team-Verwaltung
+ * Hinweis: Implementiert keine Authentifizierung/Autorisierung
+ */
 @Controller('team')
 export class TeamController {
   constructor(private readonly teamService: TeamService) {}

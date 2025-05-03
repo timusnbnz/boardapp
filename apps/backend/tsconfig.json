@@ -1,3 +1,5 @@
+// Basis-TypeScript-Konfiguration für Backend 
+// Aktiviert ES-Module-Interoperabilität für bessere Kompatibilität mit CommonJS-Modulen
 {
   "extends": "../../tsconfig.base.json",
   "files": [],

@@ -4,6 +4,9 @@ import { TasksService } from './tasks.service';
 import { PrismaService } from '../../prisma.service';
 import { AuthModule } from '../auth/auth.module';
 
+/**
+ * Modul für die Task-Verwaltungsfunktionalität 
+ */
 @Module({
   imports: [AuthModule],
   controllers: [TasksController],

@@ -1,6 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../prisma.service';
 
+/**
+ * Service für grundlegende Team-Verwaltungsoperationen
+ * Hinweis: Enthält keine Berechtigungsüberprüfung
+ */
 @Injectable()
 export class TeamService {
   constructor(private readonly prisma: PrismaService) {}
